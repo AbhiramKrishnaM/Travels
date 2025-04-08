@@ -20,5 +20,50 @@ model User {
   email      String    @unique
   password   String?
   created_at DateTime  @default(now())
+  bookings   Booking[]
+}
+
+model TouristPlace {
+  id          Int      @id @default(autoincrement())
+  name        String
+  location    String
+  description String?
+  image_url   String?
+  hotels      Hotel[]
+}
+
+model Hotel {
+  id              Int          @id @default(autoincrement())
+  name            String
+  address         String
+  description     String?
+  amenities       String?      // Can be a JSON string or separate table
+  price_per_night Decimal
+  tourist_place   TouristPlace @relation(fields: [place_id], references: [id])
+  place_id        Int
+  bookings        Booking[]
+}
+
+model Booking {
+  id             Int           @id @default(autoincrement())
+  user           User          @relation(fields: [user_id], references: [id])
+  user_id        Int
+  hotel          Hotel         @relation(fields: [hotel_id], references: [id])
+  hotel_id       Int
+  check_in_date  DateTime
+  check_out_date DateTime
+  total_price    Decimal
+  status         String        // e.g., "pending", "confirmed", "checked-in", "completed"
+  created_at     DateTime      @default(now())
+  guests         GuestDetail[]
+}
+
+model GuestDetail {
+  id           Int     @id @default(autoincrement())
+  booking      Booking @relation(fields: [booking_id], references: [id])
+  booking_id   Int
+  name         String
+  aadhaar_no   String  // Store this securely
+  is_primary   Boolean @default(false) // Is this the primary booker
 }
 
