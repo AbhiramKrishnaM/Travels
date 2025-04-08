@@ -2,7 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import Landing from "./pages/landing";
 import Register from "./pages/auth/register";
 import Signing from "./pages/auth/signing";
+
 import { useAuthStore } from "./store/authStore";
+import Bookings from "./pages/bookings";
 
 export default function App() {
   const isLoggedIn = useAuthStore((state) => state.isLoggedIn);
@@ -20,6 +22,10 @@ export default function App() {
       <Route
         path="/signing"
         element={isLoggedIn ? <Navigate to="/" /> : <Signing />}
+      />
+      <Route
+        path="/bookings"
+        element={isLoggedIn ? <Bookings /> : <Navigate to="/signing" />}
       />
     </Routes>
   );
