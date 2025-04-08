@@ -24,8 +24,10 @@ export const useAuthStore = create<AuthState>((set) => ({
       );
 
       if (response.ok) {
+        const data: AuthResponse = await response.json();
         set({ isLoggedIn: true });
         localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("user", JSON.stringify(data.user));
       } else {
         console.error("Login failed");
       }
@@ -48,6 +50,7 @@ export const useAuthStore = create<AuthState>((set) => ({
       if (response.ok) {
         set({ isLoggedIn: false });
         localStorage.removeItem("isLoggedIn");
+        localStorage.removeItem("user");
       } else {
         console.error("Logout failed");
       }
@@ -70,6 +73,7 @@ export const useAuthStore = create<AuthState>((set) => ({
         console.log(data.message);
         set({ isLoggedIn: true });
         localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("user", JSON.stringify(data.user));
       } else {
         console.error("Registration failed");
       }
