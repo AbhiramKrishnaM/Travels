@@ -13,8 +13,14 @@ export default function App() {
         path="/"
         element={isLoggedIn ? <Landing /> : <Navigate to="/signing" />}
       />
-      <Route path="/register" element={<Register />} />
-      <Route path="/signing" element={<Signing />} />
+      <Route
+        path="/register"
+        element={isLoggedIn ? <Navigate to="/" /> : <Register />}
+      />
+      <Route
+        path="/signing"
+        element={isLoggedIn ? <Navigate to="/" /> : <Signing />}
+      />
     </Routes>
   );
 }
