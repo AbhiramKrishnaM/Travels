@@ -8,8 +8,7 @@ import {
 const hotelRouter = Router();
 
 hotelRouter.get("/", getAllHotels);
-hotelRouter.get("/:id", getHotelById);
-
 hotelRouter.get("/dummy", getDummyHotels);
+hotelRouter.get("/:id", getHotelById);
 
 export default hotelRouter;

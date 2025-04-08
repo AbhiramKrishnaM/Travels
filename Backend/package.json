@@ -9,7 +9,9 @@
     "prestart": "npm run build",
     "prisma:generate": "prisma generate",
     "migration:create": "prisma migrate dev --create-only",
-    "migrate": "prisma migrate deploy"
+    "migrate": "prisma migrate deploy",
+    "seed": "ts-node prisma/seed.ts",
+    "prisma:studio": "prisma studio"
   },
   "keywords": [],
   "author": "",

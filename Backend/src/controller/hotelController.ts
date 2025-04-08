@@ -31,15 +31,21 @@ export async function getHotelById(
 ): Promise<void> {
   try {
     const hotelId = parseInt(req.params.id);
+
     const hotel = await prisma.hotel.findUnique({
-      where: { id: hotelId },
+      where: {
+        id: hotelId,
+      },
       include: {
         tourist_place: true,
       },
     });
 
     if (!hotel) {
-      res.status(404).json({ message: "Hotel not found" });
+      res.status(404).json({
+        success: false,
+        message: "Hotel not found",
+      });
       return;
     }
 
