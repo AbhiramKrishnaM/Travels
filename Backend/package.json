@@ -1,13 +1,13 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "index.ts",
-  "type": "module",
+  "main": "src/app.ts",
   "scripts": {
     "build": "tsc",
-    "start": "node dist/index.js",
-    "dev": "ts-node src/index.ts",
-    "prestart": "npm run build"
+    "start": "node dist/app.js",
+    "dev": "nodemon src/app.ts",
+    "prestart": "npm run build",
+    "migrate": "npx prisma migrate dev --name init"
   },
   "keywords": [],
   "author": "",
@@ -23,10 +23,12 @@
   },
   "dependencies": {
     "@prisma/client": "^6.5.0",
+    "@types/cookie-parser": "^1.4.8",
     "bcryptjs": "^3.0.2",
     "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
     "express": "^5.1.0",
-    "jsonwebtoken": "^9.0.2"
+    "jsonwebtoken": "^9.0.2",
+    "tslib": "^2.8.1"
   }
 }
