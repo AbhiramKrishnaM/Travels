@@ -164,33 +164,6 @@ The database schema is defined using Prisma and includes the following models:
     }
     ```
 
-- **Get dummy hotels**
-  - **URL**: `/hotels/dummy`
-  - **Method**: `GET`
-  - **Response**:
-    ```json
-    {
-      "success": true,
-      "data": [
-        {
-          "id": 1,
-          "name": "Grand Palace Resort",
-          "address": "123 Beachfront Ave, Miami, FL",
-          "description": "Luxury resort with ocean views",
-          "amenities": "Pool, Spa, Restaurant, Gym",
-          "price_per_night": 299.99,
-          "place_id": 1,
-          "tourist_place": {
-            "id": 1,
-            "name": "Miami Beach",
-            "location": "Florida, USA",
-            "description": "Beautiful beaches and vibrant nightlife"
-          }
-        }
-      ]
-    }
-    ```
-
 ### Bookings
 
 - **Create a booking**
