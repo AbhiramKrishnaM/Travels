@@ -8,7 +8,7 @@ export async function getAllHotels(
   next: NextFunction
 ): Promise<void> {
   try {
-    const hotels = await prisma.Hotel.findMany({
+    const hotels = await prisma.hotel.findMany({
       include: {
         tourist_place: true,
       },
@@ -24,7 +24,6 @@ export async function getAllHotels(
   }
 }
 
-// Get hotel by ID
 export async function getHotelById(
   req: Request,
   res: Response,
@@ -32,7 +31,7 @@ export async function getHotelById(
 ): Promise<void> {
   try {
     const hotelId = parseInt(req.params.id);
-    const hotel = await prisma.Hotel.findUnique({
+    const hotel = await prisma.hotel.findUnique({
       where: { id: hotelId },
       include: {
         tourist_place: true,
@@ -54,7 +53,6 @@ export async function getHotelById(
   }
 }
 
-// For development/testing: GET dummy hotels
 export async function getDummyHotels(
   req: Request,
   res: Response

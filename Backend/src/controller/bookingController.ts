@@ -8,9 +8,9 @@ export async function createBooking(
 ): Promise<void> {
   try {
     const { hotelId, checkInDate, checkOutDate, totalPrice } = req.body;
-    const userId = req.user.id;
+    const userId = (req as any).user.id;
 
-    const booking = await prisma.Booking.create({
+    const booking = await prisma.booking.create({
       data: {
         user_id: userId,
         hotel_id: hotelId,
@@ -38,9 +38,9 @@ export async function webCheckIn(
 ): Promise<void> {
   try {
     const { bookingId, guests } = req.body;
-    const userId = req.user.id;
+    const userId = (req as any).user.id;
 
-    const booking = await prisma.Booking.findFirst({
+    const booking = await prisma.booking.findFirst({
       where: {
         id: bookingId,
         user_id: userId,
@@ -54,7 +54,7 @@ export async function webCheckIn(
 
     const guestRecords = await Promise.all(
       guests.map(async (guest) => {
-        return prisma.GuestDetail.create({
+        return prisma.guestDetail.create({
           data: {
             booking_id: bookingId,
             name: guest.name,
@@ -65,7 +65,7 @@ export async function webCheckIn(
       })
     );
 
-    await prisma.Booking.update({
+    await prisma.booking.update({
       where: { id: bookingId },
       data: { status: "checked-in" },
     });

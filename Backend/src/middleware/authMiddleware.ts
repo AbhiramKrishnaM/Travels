@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 import jwt from "jsonwebtoken";
-import prisma from "../db/prisma";
 
 export async function authenticate(
   req: Request,
@@ -18,8 +17,7 @@ export async function authenticate(
       userId: number;
     };
 
-    // Attach user to request
-    req.user = { id: decoded.userId };
+    (req as any).user = { id: decoded.userId };
 
     next();
   } catch (error) {

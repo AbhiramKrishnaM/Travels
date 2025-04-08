@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,7 +6,6 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
-
 
 model User {
   id         Int       @id @default(autoincrement())
@@ -24,7 +17,7 @@ model User {
 }
 
 model TouristPlace {
-  id          Int      @id @default(autoincrement())
+  id          Int     @id @default(autoincrement())
   name        String
   location    String
   description String?
@@ -37,33 +30,32 @@ model Hotel {
   name            String
   address         String
   description     String?
-  amenities       String?      // Can be a JSON string or separate table
+  amenities       String?
   price_per_night Decimal
-  tourist_place   TouristPlace @relation(fields: [place_id], references: [id])
   place_id        Int
   bookings        Booking[]
+  tourist_place   TouristPlace @relation(fields: [place_id], references: [id])
 }
 
 model Booking {
   id             Int           @id @default(autoincrement())
-  user           User          @relation(fields: [user_id], references: [id])
   user_id        Int
-  hotel          Hotel         @relation(fields: [hotel_id], references: [id])
   hotel_id       Int
   check_in_date  DateTime
   check_out_date DateTime
   total_price    Decimal
-  status         String        // e.g., "pending", "confirmed", "checked-in", "completed"
+  status         String
   created_at     DateTime      @default(now())
+  hotel          Hotel         @relation(fields: [hotel_id], references: [id])
+  user           User          @relation(fields: [user_id], references: [id])
   guests         GuestDetail[]
 }
 
 model GuestDetail {
-  id           Int     @id @default(autoincrement())
-  booking      Booking @relation(fields: [booking_id], references: [id])
-  booking_id   Int
-  name         String
-  aadhaar_no   String  // Store this securely
-  is_primary   Boolean @default(false) // Is this the primary booker
+  id         Int     @id @default(autoincrement())
+  booking_id Int
+  name       String
+  aadhaar_no String
+  is_primary Boolean @default(false)
+  booking    Booking @relation(fields: [booking_id], references: [id])
 }
-

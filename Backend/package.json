@@ -7,7 +7,9 @@
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
     "prestart": "npm run build",
-    "migrate": "npx prisma migrate dev --name init"
+    "prisma:generate": "prisma generate",
+    "migration:create": "prisma migrate dev --create-only",
+    "migrate": "prisma migrate deploy"
   },
   "keywords": [],
   "author": "",
