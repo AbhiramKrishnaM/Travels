@@ -4,9 +4,7 @@ import { authenticate } from "../middleware/authMiddleware";
 
 const bookingRouter = Router();
 
-bookingRouter.use(authenticate);
-
-bookingRouter.post("/create", createBooking);
-bookingRouter.post("/check-in", webCheckIn);
+bookingRouter.post("/create", authenticate, createBooking);
+bookingRouter.post("/check-in", authenticate, webCheckIn);
 
 export default bookingRouter;
